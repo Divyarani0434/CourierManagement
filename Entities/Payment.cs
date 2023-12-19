@@ -8,33 +8,17 @@ namespace CourierManagement.Entities
 {
     internal class Payment
     {
-        private long paymentID;
-        private long courierID;
-        private double amount;
-        private DateTime paymentDate;
+        private static long nextPaymentID = 1;
 
-       
-        public Payment() { }
-
-        
-        public Payment(long paymentID, long courierID, double amount, DateTime paymentDate)
+        public Payment()
         {
-            this.paymentID = paymentID;
-            this.courierID = courierID;
-            this.amount = amount;
-            this.paymentDate = paymentDate;
+            PaymentID = nextPaymentID++;
         }
 
-       
-        public long PaymentID { get => paymentID; set => paymentID = value; }
-        public long CourierID { get => courierID; set => courierID = value; }
-        public double Amount { get => amount; set => amount = value; }
-        public DateTime PaymentDate { get => paymentDate; set => paymentDate = value; }
-
-        public override string ToString()
-        {
-            return $"Payment{{paymentID={paymentID}, courierID={courierID}, amount={amount}, paymentDate={paymentDate}}}";
-        }
+        public long PaymentID { get; private set; }
+        public long CourierID { get; set; }
+        public double Amount { get; set; }
+        public DateTime PaymentDate { get; set; }
     }
 }
     

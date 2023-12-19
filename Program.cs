@@ -1,75 +1,126 @@
-﻿// Write a  program that checks whether a given order is delivered or not based
-// on its status (e.g., "Processing," "Delivered," "Cancelled"). Use if-else statements for this.
-String status = "Delivered";
-if (status == "Delivered")
+﻿using CourierManagement.Repository;
+using CourierManagement.Service;
+using System;
+
+class Program
 {
-    Console.WriteLine("The order has been delivered.");
+    static void Main()
+    {
+        var repository = new CourierUserRepository();
+        var repository1 = new CourierAdminRepository();
+        var courierService = new CourierUserService(repository);
+        var courierAdmin = new CourierAdminService(repository1);
+
+
+        Console.WriteLine("Courier Management System");
+    MainMenu:
+        while (true)
+        {
+            Console.WriteLine("Main Menu :");
+            Console.WriteLine("1. User Options");
+            Console.WriteLine("2. Admin Options");
+            Console.WriteLine("Choose an operation:");
+
+
+
+            string userInput = Console.ReadLine();
+
+            switch (userInput)
+            {
+                case "1":
+                    while (true)
+                    {
+
+                        Console.WriteLine("1. Place a new courier order");
+                        Console.WriteLine("2. Get order status");
+                        Console.WriteLine("3. Cancel a Courier");
+                        Console.WriteLine("4. Assign Employee to Courier");
+                        Console.WriteLine("5. Mark Courier Delivered");
+                        Console.WriteLine("6. Check Couries Assigned to Employee ");
+                        Console.WriteLine("7. Return To Main Menu ");
+                        Console.WriteLine("Choose an operation:");
+                        
+                        string input = Console.ReadLine();
+                        switch (input)
+                        {
+                            case "1":
+                                courierService.TakeUserInputsAndPlaceOrder();
+                                break;
+                            case "2":
+                                // Add a new courier staff member
+                                courierService.TakeUserInputsAndGetOrderStatus();
+                                break;
+
+                            case "3":
+                                // Get order status
+                                courierService.CancelOrder();
+                                break;
+
+                            case "4":
+                                courierService.AssignCourier();
+
+                                break;
+                            case "5":
+                                courierService.MarkOrderDelivered();
+
+                                break;
+                            case "6":
+                                courierService.GetAssignedOrders();
+                                break;
+                            case "7":
+                                goto MainMenu;
+
+                            default:
+                                Console.WriteLine("Invalid choice. Please enter a valid option.");
+                                break;
+                        }
+                        Console.WriteLine();
+
+                    }
+                    break;
+
+                case "2":
+                    while (true)
+                    {
+                        Console.WriteLine("1. Add Courier Employee");
+                        Console.WriteLine("2. Remove Courier Employee");
+                        Console.WriteLine("3. Generate Delivery Report");
+                        Console.WriteLine("4. Return To Main Menu ");
+                        Console.WriteLine("Choose an operation:");
+
+                        string input = Console.ReadLine();
+                        switch (input)
+                        {
+                            case "1":
+                                courierAdmin.AddCourierStaff();
+                                break;
+                            case "2":
+                                // Add a new courier staff member
+                                courierAdmin.RemoveCourierStaff();
+                                break;
+
+                            case "3":
+                                // Get delivery Report
+                                courierAdmin.DeliveryReport();
+                                break;
+
+                            case "4":
+                                goto MainMenu;
+                            default:
+                                Console.WriteLine("Invalid choice. Please enter a valid option.");
+                                break;
+                        }
+                        Console.WriteLine();
+
+                    }
+                    break;
+                                  
+                default:
+                    Console.WriteLine("Invalid choice. Please enter a valid option.");
+                    break;
+            }
+
+            Console.WriteLine();
+        }
+    }
 }
-else if (status == "Processing")
-{
-    Console.WriteLine("The order is still being processed.");
-}
-else if (status == "Cancelled")
-{
-    Console.WriteLine("The order has been cancelled.");
-}
-else
-{
-    Console.WriteLine("Invalid order status.");
-}
-
-
-
-
-//Implement a switch-case statement to categorize parcels based on their weight into "Light," "Medium," or "Heavy.
-double parcelWeight = 4.5;
-
-String category;
-
-switch ((int)parcelWeight)
-{
-    case 0:
-        category = "Light";
-        break;
-    case 1:
-        category = "Light";
-        break;
-    case 2:
-        category = "Light";
-        break;
-    case 3:
-        category = "Medium";
-        break;
-    case 4:
-        category = "Medium";
-        break;
-    case 5:
-        category = "Medium";
-        break;
-    default:
-        category = "Heavy";
-        break;
-}
-
-
-
-Console.WriteLine("Parcel category: " + category);
-
-//Implement User Authentication
-// Create a login system for employees and customers using Java controlflow statements
-
-String storedPassword = "hashed_password";
-String enteredPassword;
-Console.WriteLine("Enter your password: ");
-enteredPassword = Console.ReadLine();
-if (enteredPassword == storedPassword)
-
-{
-    Console.WriteLine("Authentication successful. Welcome!");
-}
-else
-{
-    Console.WriteLine("Authentication failed. Please try again.");
-}
-
-

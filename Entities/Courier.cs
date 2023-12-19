@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,49 +9,30 @@ namespace CourierManagement.Entities
 {
     internal class Courier
     {
-        private long courierID;
-        private string senderName;
-        private string senderAddress;
-        private string receiverName;
-        private string receiverAddress;
-        private double weight;
-        private string status;
-        private long trackingNumber;
-        private DateTime deliveryDate;
-        private int userId;
+  
+      //  public long CourierID { get; private set; }
+        public int ServiceID { get; set; }
+        public int EmployeeID { get; set; }
+        public int RecieverID { get; set; }
+        public int LocationID { get; set; }
+        public int SenderID { get; set; }
+        public decimal Weight { get; set; }
+        public string Status { get; set; }
+        public string TrackingNumber { get; set; }
+        public DateTime DeliveryDate { get; set; }
+       // public int UserID { get; set; }
 
-    
-        public Courier() { }
-
-        public Courier(long courierID, string senderName, string senderAddress, string receiverName,
-                       string receiverAddress, double weight, string status, long trackingNumber, DateTime deliveryDate, int userId)
+        public Courier(int ServiceID,  int EmployeeID,int RecieverID,int LocationID,int SenderID,decimal Weight,string Status, DateTime DeliveryDate)
         {
-            this.courierID = courierID;
-            this.senderName = senderName;
-            this.senderAddress = senderAddress;
-            this.receiverName = receiverName;
-            this.receiverAddress = receiverAddress;
-            this.weight = weight;
-            this.status = status;
-            this.trackingNumber = trackingNumber;
-            this.deliveryDate = deliveryDate;
-            this.userId = userId;
-        }
+            this.ServiceID = ServiceID;
+            this.EmployeeID = EmployeeID;
+            this.RecieverID = RecieverID;
+            this.LocationID = LocationID;
+            this.SenderID = SenderID;
+            this.Weight= Weight;
+            this.Status = Status;
+            this.DeliveryDate = DeliveryDate;
 
-        public long CourierID { get => courierID; set => courierID = value; }
-        public string SenderName { get => senderName; set => senderName = value; }
-        public string SenderAddress { get => senderAddress; set => senderAddress = value; }
-        public string ReceiverName { get => receiverName; set => receiverName = value; }
-        public string ReceiverAddress { get => receiverAddress; set => receiverAddress = value; }
-        public double Weight { get => weight; set => weight = value; }
-        public string Status { get => status; set => status = value; }
-        public long TrackingNumber { get => trackingNumber; set => trackingNumber = value; }
-        public DateTime DeliveryDate { get => deliveryDate; set => deliveryDate = value; }
-        public int UserId { get => userId; set => userId = value; }
-
-        public override string ToString()
-        {
-            return $"Courier{{courierID={courierID}, senderName='{senderName}', senderAddress='{senderAddress}', receiverName='{receiverName}', receiverAddress='{receiverAddress}', weight={weight}, status='{status}', trackingNumber={trackingNumber}, deliveryDate={deliveryDate}, userId={userId}}}";
         }
     }
 }

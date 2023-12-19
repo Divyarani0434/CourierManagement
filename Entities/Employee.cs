@@ -8,35 +8,30 @@ namespace CourierManagement.Entities
 {
     internal class Employee
     {
-        private long employeeID;
-        private string employeeName;
-        private string email;
-        private long contactNumber;
-        private string role;
-        private double salary;
+        private static long nextEmployeeID = 1;
 
-        public Employee() { }
-
-        public Employee(long employeeID, string employeeName, string email, long contactNumber, string role, double salary)
+        public Employee()
         {
-            this.employeeID = employeeID;
-            this.employeeName = employeeName;
-            this.email = email;
-            this.contactNumber = contactNumber;
-            this.role = role;
-            this.salary = salary;
+            EmployeeID = nextEmployeeID++;
         }
 
-        public long EmployeeID { get => employeeID; set => employeeID = value; }
-        public string EmployeeName { get => employeeName; set => employeeName = value; }
-        public string Email { get => email; set => email = value; }
-        public long ContactNumber { get => contactNumber; set => contactNumber = value; }
-        public string Role { get => role; set => role = value; }
-        public double Salary { get => salary; set => salary = value; }
-
-        public override string ToString()
+        public Employee(string name, string email, string phone, string role, decimal sal)
         {
-            return $"Employee{{employeeID={employeeID}, employeeName='{employeeName}', email='{email}', contactNumber={contactNumber}, role='{role}', salary={salary}}}";
+            EmployeeName = name;
+            Email = email;
+            ContactNumber = phone;
+            Role = role;
+            Salary = sal;
         }
+
+        public long EmployeeID { get; private set; }
+        public string EmployeeName { get; set; }
+        public string Email { get; set; }
+        public string ContactNumber { get; set; }
+        public string Role { get; set; }
+        public decimal Salary { get; set; }
+        public string? Name { get; }
+        public string? Phone { get; }
+        public decimal Sal { get; }
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CourierManagement.Exceptions;
 
 namespace CourierManagement.Repository
 {
@@ -72,27 +73,33 @@ namespace CourierManagement.Repository
         public string GetOrderStatus(string trackingNumber)
         {
             string status = "Unknown"; // Default status if not found
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Open();
-
-                string query = "SELECT Status FROM Couriers WHERE TrackingNumber = @TrackingNumber";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@TrackingNumber", trackingNumber);
+                    connection.Open();
 
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    string query = "SELECT Status FROM Couriers WHERE TrackingNumber = @TrackingNumber";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        if (reader.Read())
+                        command.Parameters.AddWithValue("@TrackingNumber", trackingNumber);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            status = reader["Status"].ToString();
+                            if (reader.Read())
+                            {
+                                status = reader["Status"].ToString();
+                            }
                         }
                     }
                 }
             }
+            catch(Exception ex)
+            {
+                throw new TrackingNumberNotFoundException($"Tracking number '{trackingNumber}' not found.");
 
+            }
             return status;
         }
 

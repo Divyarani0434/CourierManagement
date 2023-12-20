@@ -1,4 +1,5 @@
 ﻿using CourierManagement.Entities;
+using CourierManagement.Exceptions;
 using CourierManagement.Repository;
 using System;
 using System.Collections.Generic;
@@ -57,19 +58,29 @@ namespace CourierManagement.Service
 
         public void TakeUserInputsAndGetOrderStatus()
         {
-            string status = "Please Enter Valid Tracking Number";
-            Console.WriteLine("Enter TrackingNumber of the courier:");
-            string Track = Console.ReadLine();
-            if(Track!= null )
+            try
             {
-                status= repository.GetOrderStatus(Track);
-                
+                string status = "Please Enter Valid Tracking Number";
+                Console.WriteLine("Enter TrackingNumber of the courier:");
+                string Track = Console.ReadLine();
+                if (Track != null)
+                {
+                    status = repository.GetOrderStatus(Track);
+
+
+                }
+                Console.WriteLine($"The Status of the Courier with Tracking Number:{Track} - {status}");
 
             }
-            Console.WriteLine($"The Status of the Courier with Tracking Number:{Track} - {status}");
-               
-            
-            
+            catch (TrackingNumberNotFoundException ex)
+            {
+                Console.WriteLine($"Tracking Number Not Found Exception: {ex.Message}");
+            }
+            catch (InvalidEmployeeIdException ex)
+            {
+                Console.WriteLine($"Invalid Employee ID Exception: {ex.Message}");
+            }
+
         }
         public void CancelOrder()
         {
